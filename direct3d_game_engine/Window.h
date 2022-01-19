@@ -1,8 +1,11 @@
 #pragma once
 #include <windows.h>
+#include "Keyboard.h"
+#include <string>
 
 class Window
 {
+	friend class Window;
 private:
 	class WindowClass
 	{
@@ -17,10 +20,17 @@ private:
 		HINSTANCE hInstance;
 	};
 public:
+	bool ProcessMesseges();
+	void Update();
 	Window(int width, int height, const char* name);
 	~Window();
-	static LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+	static LRESULT CALLBACK HandleMessageSetup(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK HandleMsgRedirect(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 private:
+	MSG msg;
 	HWND hWnd;
+protected:
+	Keyboard kbd;
 };
 

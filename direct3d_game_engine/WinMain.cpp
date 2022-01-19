@@ -4,14 +4,10 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 {
 	Window wnd(100, 100, "This is a test.");
 
-	MSG msg;
-	BOOL gResult;
-	while ((gResult = GetMessage(&msg, NULL, 0, 0)) > 0)
+	while (wnd.ProcessMesseges() == true)
 	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+		wnd.Update();
 	}
 
-	if (gResult == -1) return -1;
-	return msg.wParam;
+	return 0;
 }
