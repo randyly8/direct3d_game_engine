@@ -1,16 +1,18 @@
 #include "Window.h"
 
-int CALLBACK WinMain(HINSTANCE hInstance, 
-	HINSTANCE hPrevInstance, 
-	LPSTR lpCmdLine, 
-	int nCmdShow)
+int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	Window wnd(800, 600, "This is a test.");
-
-	while (wnd.ProcessMesseges() == true)
-	{
-		wnd.Update();
+	try {
+		Window wnd(100, 100, "This is a test.");
+		return wnd.Go();
 	}
-
-	return 0;
+	catch (const std::exception& e)
+	{
+		MessageBox(nullptr, e.what(), "Standard Exception", MB_OK | MB_ICONEXCLAMATION);
+	}
+	catch (...)
+	{
+		MessageBox(nullptr, "No details available", "Unknown Exception", MB_OK | MB_ICONEXCLAMATION);
+	}
+	return -1;
 }

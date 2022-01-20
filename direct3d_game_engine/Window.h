@@ -21,7 +21,7 @@ private:
 		HINSTANCE hInstance;
 	};
 public:
-	bool ProcessMesseges();
+	int Go();
 	void Update();
 	Window(int width, int height, const char* name);
 	~Window();

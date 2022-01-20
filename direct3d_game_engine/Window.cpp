@@ -28,15 +28,15 @@ HINSTANCE Window::WindowClass::GetInstance()
 	return wndClass.hInstance;
 }
 
-bool Window::ProcessMesseges()
+int Window::Go()
 {
-	bool gResult = GetMessage(&msg, NULL, 0, 0);
-	if (gResult)
+	while (GetMessage(&msg, NULL, 0, 0) > 0)
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+		Update();
 	}
-	return gResult;
+	return msg.wParam;
 }
 
 void Window::Update()
@@ -170,7 +170,7 @@ LRESULT Window::WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) no
 {
 	switch(msg)
 	{
-	// Keyboard messages
+	/*********** KEYBOARD MESSAGES ***********/
 	case WM_KEYDOWN: 
 	{
 		unsigned char keycode = static_cast<unsigned char>(wParam);
@@ -211,7 +211,9 @@ LRESULT Window::WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) no
 		}
 		return 0;
 	}
-	// Mouse messages
+	/*********** END KEYBOARD MESSAGES ***********/
+
+	/************** MOUSE MESSAGES ***************/
 	case WM_MOUSEMOVE:
 	{
 		int x = LOWORD(lParam);
@@ -274,6 +276,7 @@ LRESULT Window::WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) no
 			mouse.OnWheelDown(x, y);
 		}
 	}
+	/************ END MOUSE MESSAGES *************/
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
