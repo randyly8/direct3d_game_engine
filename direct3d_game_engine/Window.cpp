@@ -155,6 +155,9 @@ LRESULT CALLBACK Window::HandleMsgRedirect(HWND hwnd, UINT uMsg, WPARAM wParam, 
 	case WM_CLOSE:
 		DestroyWindow(hwnd);
 		return 0;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
 
 	default:
 	{
