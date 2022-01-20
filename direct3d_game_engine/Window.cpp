@@ -41,6 +41,7 @@ bool Window::ProcessMesseges()
 
 void Window::Update()
 {
+	// Test Char
 	while (!kbd.CharBufferIsEmpty())
 	{
 		unsigned char ch = kbd.ReadChar();
@@ -49,6 +50,7 @@ void Window::Update()
 		outmsg += "\n";
 		OutputDebugStringA(outmsg.c_str());
 	}
+	// Test Key
 	while (!kbd.KeyBufferIsEmpty())
 	{
 		KeyboardEvent kbe = kbd.ReadKey();
@@ -59,6 +61,49 @@ void Window::Update()
 		outmsg += keycode;
 		outmsg += "\n";
 		OutputDebugStringA(outmsg.c_str());
+	}
+	// Test Mouse
+	while (!mouse.EventBufferIsEmpty())
+	{
+		MouseEvent me = mouse.ReadEvent();
+		std::string outmsg;
+
+		switch (me.GetType())
+		{
+		case MouseEvent::EventType::LPress:
+			OutputDebugStringA("LPress\n");
+			break;
+		case MouseEvent::EventType::LRelease:
+			OutputDebugStringA("LRelease\n");
+			break;
+		case MouseEvent::EventType::RPress:
+			OutputDebugStringA("RPress\n");
+			break;
+		case MouseEvent::EventType::RRelease:
+			OutputDebugStringA("RRelease\n");
+			break;
+		case MouseEvent::EventType::MPress:
+			OutputDebugStringA("MPress\n");
+			break;
+		case MouseEvent::EventType::MRelease:
+			OutputDebugStringA("MRelease\n");
+			break;
+		case MouseEvent::EventType::WheelUp:
+			OutputDebugStringA("WheelUp\n");
+			break;
+		case MouseEvent::EventType::WheelDown:
+			OutputDebugStringA("WheelDown\n");
+			break;
+		default:
+		{
+			outmsg += "X: ";
+			outmsg += std::to_string(me.GetPosX());
+			outmsg += ", Y: ";
+			outmsg += std::to_string(me.GetPosY());
+			outmsg += "\n";
+			OutputDebugStringA(outmsg.c_str());
+		}
+		}
 	}
 }
 
@@ -125,6 +170,7 @@ LRESULT Window::WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) no
 {
 	switch(msg)
 	{
+	// Keyboard messages
 	case WM_KEYDOWN: 
 	{
 		unsigned char keycode = static_cast<unsigned char>(wParam);
@@ -164,6 +210,69 @@ LRESULT Window::WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) no
 			}
 		}
 		return 0;
+	}
+	// Mouse messages
+	case WM_MOUSEMOVE:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+		mouse.OnMouseMove(x, y);
+		return 0;
+	}
+	case WM_LBUTTONDOWN:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+		mouse.OnLeftPressed(x, y);
+		return 0;
+	}
+	case WM_RBUTTONDOWN:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+		mouse.OnRightPressed(x, y);
+		return 0;
+	}
+	case WM_MBUTTONDOWN:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+		mouse.OnMiddlePressed(x, y);
+		return 0;
+	}
+	case WM_LBUTTONUP:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+		mouse.OnLeftReleased(x, y);
+		return 0;
+	}
+	case WM_RBUTTONUP:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+		mouse.OnRightReleased(x, y);
+		return 0;
+	}
+	case WM_MBUTTONUP:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+		mouse.OnMiddlePressed(x, y);
+		return 0;
+	}
+	case WM_MOUSEWHEEL:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
+		{
+			mouse.OnWheelUp(x, y);
+		}
+		else if (GET_WHEEL_DELTA_WPARAM(wParam) < 0)
+		{
+			mouse.OnWheelDown(x, y);
+		}
 	}
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);

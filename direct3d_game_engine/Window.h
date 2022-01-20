@@ -1,6 +1,7 @@
 #pragma once
 #include <windows.h>
 #include "Keyboard.h"
+#include "Mouse.h"
 #include <string>
 
 class Window
@@ -32,5 +33,6 @@ private:
 	HWND hWnd;
 protected:
 	Keyboard kbd;
+	Mouse mouse;
 };
 

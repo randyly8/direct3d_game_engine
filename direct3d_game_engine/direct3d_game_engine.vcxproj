@@ -161,12 +161,16 @@
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="KeyboardEvent.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="MouseEvent.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KeyboardEvent.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="MouseEvent.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
