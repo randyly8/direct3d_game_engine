@@ -45,6 +45,9 @@
     <ClCompile Include="Mouse.cpp">
       <Filter>Source Files\Mouse</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardEvent.h">
@@ -61,6 +64,12 @@
     </ClInclude>
     <ClInclude Include="Mouse.h">
       <Filter>Header Files\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyWin.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

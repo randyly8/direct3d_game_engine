@@ -3,7 +3,7 @@
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	try {
-		Window wnd(100, 100, "This is a test.");
+		Window wnd(500, 500, "This is a test.");
 		return wnd.Go();
 	}
 	catch (const std::exception& e)

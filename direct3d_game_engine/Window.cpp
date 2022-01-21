@@ -105,6 +105,8 @@ void Window::Update()
 		}
 		}
 	}
+	Gfx().EndFrame();
+	Gfx().ClearBuffer(1, 0, 0);
 }
 
 // Window
@@ -124,11 +126,18 @@ Window::Window(int width, int height, const char* name)
 		nullptr, nullptr, WindowClass::GetInstance(), this
 	);
 	ShowWindow(hWnd, SW_SHOW);
+	// create graphics object
+	pGfx = std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
 {
 	DestroyWindow(hWnd);
+}
+
+Graphics& Window::Gfx()
+{
+	return *pGfx;
 }
 
 LRESULT Window::HandleMessageSetup(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

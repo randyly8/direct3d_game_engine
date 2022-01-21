@@ -1,8 +1,10 @@
 #pragma once
-#include <windows.h>
+#include "MyWin.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "Graphics.h"
 #include <string>
+#include <memory>
 
 class Window
 {
@@ -25,6 +27,8 @@ public:
 	void Update();
 	Window(int width, int height, const char* name);
 	~Window();
+	Graphics& Gfx();
+private:
 	static LRESULT CALLBACK HandleMessageSetup(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK HandleMsgRedirect(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
@@ -34,5 +38,6 @@ private:
 protected:
 	Keyboard kbd;
 	Mouse mouse;
+	std::unique_ptr<Graphics> pGfx; // defer pointer
 };
 
