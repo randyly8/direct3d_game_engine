@@ -2,16 +2,21 @@
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	Window wnd(100, 100, "This is a test.");
-
-	MSG msg;
-	BOOL gResult;
-	while ((gResult = GetMessage(&msg, NULL, 0, 0)) > 0)
-	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+	try {
+		Window wnd(500, 500, "This is a test.");
+		return wnd.Go();
 	}
-
-	if (gResult == -1) return -1;
-	return msg.wParam;
+	catch (const MyException e)
+	{
+		MessageBox(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION);
+	}
+	catch (const std::exception& e)
+	{
+		MessageBox(nullptr, e.what(), "Standard Exception", MB_OK | MB_ICONEXCLAMATION);
+	}
+	catch (...)
+	{
+		MessageBox(nullptr, "No details available", "Unknown Exception", MB_OK | MB_ICONEXCLAMATION);
+	}
+	return -1;
 }
