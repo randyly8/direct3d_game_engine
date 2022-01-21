@@ -6,6 +6,10 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		Window wnd(500, 500, "This is a test.");
 		return wnd.Go();
 	}
+	catch (const MyException e)
+	{
+		MessageBox(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION);
+	}
 	catch (const std::exception& e)
 	{
 		MessageBox(nullptr, e.what(), "Standard Exception", MB_OK | MB_ICONEXCLAMATION);

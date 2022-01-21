@@ -1,5 +1,6 @@
 #pragma once
 #include "MyWin.h"
+#include "MyException.h"
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
@@ -8,7 +9,19 @@
 
 class Window
 {
-	friend class Window;
+public:
+	class Exception : public MyException
+	{
+	public:
+		Exception(int line, const char* file, HRESULT hr);
+		const char* what() const override;
+		virtual const char* GetType() const;
+		static std::string TranslateErrorCode(HRESULT hr);
+		HRESULT GetErrorCode() const noexcept;
+		std::string GetErrorString() const noexcept;
+	private:
+		HRESULT hr;
+	};
 private:
 	class WindowClass
 	{
@@ -41,3 +54,6 @@ protected:
 	std::unique_ptr<Graphics> pGfx; // defer pointer
 };
 
+// error exception macro
+#define MYWND_EXCEPT( hr ) Window::Exception( __LINE__,__FILE__,hr )
+#define MYWND_LAST_EXCEPT() Window::Exception( __LINE__,__FILE__,GetLastError() )

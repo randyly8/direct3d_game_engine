@@ -7,8 +7,7 @@ class Graphics
 public:
 	Graphics(HWND hWnd);
 	~Graphics();
-	// flip frame
-	void EndFrame(); 
+	void EndFrame(); // flip frame
 	void ClearBuffer(float red, float green, float blue) noexcept;
 private:
 	ID3D11Device* pDevice = nullptr;

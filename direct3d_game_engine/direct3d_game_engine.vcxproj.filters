@@ -48,6 +48,9 @@
     <ClCompile Include="Graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MyException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardEvent.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MyWin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
